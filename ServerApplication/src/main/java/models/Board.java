@@ -108,29 +108,28 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
     public void doClickSquare(int row, int col) {
         if (board[row][col] != 0) {
-            verifyEmptySquare(currentPlayer);
+            selectEmptySpace(currentPlayer);
             return;
         }
+        if (currentPlayer == Player.BLACK) {
+            board[row][col] = 2; //2-black
+        } else {
+            board[row][col] = 1; //1-white
+        }
+        repaint();
 
         if (winner(row, col)) {
             displayWinner(currentPlayer);
             return;
         }
 
-        if (currentPlayer == Player.BLACK) {
-            board[row][col] = 2; //2 - BLACK
-        } else {
-            board[row][col] = 1; //1 - WHITE
-        }
-        repaint();
-
         boolean emptySpace = checkBoardFull();
+
         if (!emptySpace) {
             gameOver("The game ends in a draw.");
             return;
         }
 
-        //next player
         if (currentPlayer == Player.BLACK) {
             currentPlayer = Player.WHITE;
             message.setText("WHITE - It's your turn!");
@@ -138,23 +137,21 @@ public class Board extends JPanel implements ActionListener, MouseListener {
             currentPlayer = Player.BLACK;
             message.setText("BLACK - It's your turn!");
         }
-
     }
 
-
-    public void verifyEmptySquare(Player currentPlayer) {
-        if (currentPlayer == Player.BLACK) {
-            message.setText("BLACK - Please click an empty square.");
-        } else {
-            message.setText("WHITE - Please click an empty square.");
-        }
-    }
-
-    public void displayWinner(Player currentPlayer) {
+    public void displayWinner(Player currentPlayer){
         if (currentPlayer == Player.WHITE) {
             gameOver("WHITE wins the game!");
         } else {
             gameOver("BLACK wins the game!");
+        }
+    }
+
+    public void selectEmptySpace(Player currentPlayer){
+        if (currentPlayer == Player.BLACK) {
+            message.setText("BLACK - Please click an empty square.");
+        } else {
+            message.setText("WHITE -  Please click an empty square.");
         }
     }
 
