@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * GameClient class:
  * - an instance of this class will read commands
- * from the keyboard and it will send them to the server. T
+ * from the keyboard and it will send them to the server.
  * -the client stops when it reads from the keyboard the string "exit".
  */
 public class GameClient {
